@@ -1,13 +1,12 @@
 # Data Science hw 2
 
 import sys
-import _thread
 from FPGrowth import FPGrowth
 
 
 def input_data(file_name):
     items = []
-    with open('HW2(sample)/sample.in','r') as f:
+    with open(file_name,'r') as f:
         for line in f:
             items.append(line[:-1].split(','))
         return items
@@ -19,6 +18,9 @@ def input_data(file_name):
 if __name__ == '__main__':
     min_sup = sys.argv[1]
     INPUT_FILE = sys.argv[2]
-    #OUTPUT_FILE = sys.argv[3]
+    OUTPUT_FILE = sys.argv[3]
     items = input_data(INPUT_FILE)
     fp_growth = FPGrowth(min_sup,items)
+    with open(OUTPUT_FILE,'w') as f:
+        for i in fp_growth.fp:
+            f.write(str(i[0])+":"+str(i[1])+'\n')
